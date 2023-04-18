@@ -13,12 +13,17 @@
 
 const rot13 = (str) => {
   let decodedStr = "";
+  const regexSpace = /^\s*$/; // kiểm tra chuỗi rỗng hoặc chỉ chứa khoảng trắng.
 
-  for (let i = 0; i < str.length; i++) {
-    let letter = str[i];
+  if (regexSpace.test(str))
+    return (decodedStr = `<span style="color: red">empty string cannot be decoded</span>`);
+
+  let strUp = str.toUpperCase();
+  for (let i = 0; i < strUp.length; i++) {
+    let letter = strUp[i];
     console.log(typeof letter);
     if (letter.match(/[A-Z]/)) {
-      let code = str.charCodeAt(i);
+      let code = strUp.charCodeAt(i);
       letter = String.fromCharCode(((code - 65 + 13) % 26) + 65);
     }
 
